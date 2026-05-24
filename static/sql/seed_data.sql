@@ -10,7 +10,8 @@ INSERT INTO gender (gender) VALUES
     ('Male'),
     ('Other'),
     ('Prefer not to say'),
-    ('Unknown');
+    ('Unknown')
+ON CONFLICT (gender) DO NOTHING;
 
 -- ---------- data_type ----------
 -- These map an observation to the result column used in the
@@ -20,7 +21,8 @@ INSERT INTO data_type (data_type) VALUES
     ('smallint'),
     ('integer'),
     ('text'),
-    ('boolean');
+    ('boolean')
+ON CONFLICT (data_type) DO NOTHING;
 
 -- ---------- unit_of_measure ----------
 -- (unit_of_measure, unit_of_measure_abbr, unit_of_measure_format)
@@ -80,4 +82,5 @@ INSERT INTO unit_of_measure (unit_of_measure, unit_of_measure_abbr, unit_of_meas
     ('miles',                      'mi',         '%0.2f'),
     ('kilometers',                 'km',         '%0.2f'),
     ('steps',                      'steps',      '%d'),
-    ('calories',                   'kcal',       '%d');
+    ('calories',                   'kcal',       '%d')
+ON CONFLICT (unit_of_measure) DO NOTHING;

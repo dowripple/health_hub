@@ -8,17 +8,17 @@
 
 CREATE TABLE gender (
     gender_id   smallserial PRIMARY KEY,
-    gender      text NOT NULL
+    gender      text NOT NULL UNIQUE
 );
 
 CREATE TABLE data_type (
     data_type_id smallserial PRIMARY KEY,
-    data_type    text NOT NULL
+    data_type    text NOT NULL UNIQUE
 );
 
 CREATE TABLE unit_of_measure (
     unit_of_measure_id      serial PRIMARY KEY,
-    unit_of_measure         text NOT NULL,
+    unit_of_measure         text NOT NULL UNIQUE,
     unit_of_measure_abbr    text,
     unit_of_measure_format  text
 );
