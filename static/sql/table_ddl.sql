@@ -25,39 +25,39 @@ CREATE TABLE unit_of_measure (
 
 CREATE TABLE activity_type (
     activity_type_id smallserial PRIMARY KEY,
-    activity_type    text NOT NULL
+    activity_type    text NOT NULL UNIQUE
 );
 
 CREATE TABLE lab_test (
     test_id   serial PRIMARY KEY,
-    test_name text NOT NULL
+    test_name text NOT NULL UNIQUE
 );
 
 -- ---------- lookup tables with FKs ----------
 
 CREATE TABLE biometric_measure (
     biometric_measure_id serial PRIMARY KEY,
-    biometric_measure    text NOT NULL,
+    biometric_measure    text NOT NULL UNIQUE,
     data_type_id         integer REFERENCES data_type(data_type_id),
     unit_of_measure_id   integer REFERENCES unit_of_measure(unit_of_measure_id)
 );
 
 CREATE TABLE vitals_measure (
     vitals_measure_id  serial PRIMARY KEY,
-    vitals_measure     text NOT NULL,
+    vitals_measure     text NOT NULL UNIQUE,
     data_type_id       integer REFERENCES data_type(data_type_id),
     unit_of_measure_id integer REFERENCES unit_of_measure(unit_of_measure_id)
 );
 
 CREATE TABLE medication (
     medication_id      serial PRIMARY KEY,
-    medication         text NOT NULL,
+    medication         text NOT NULL UNIQUE,
     unit_of_measure_id integer REFERENCES unit_of_measure(unit_of_measure_id)
 );
 
 CREATE TABLE lab_component (
     component_id       serial PRIMARY KEY,
-    component_name     text NOT NULL,
+    component_name     text NOT NULL UNIQUE,
     unit_of_measure_id integer REFERENCES unit_of_measure(unit_of_measure_id),
     data_type_id       integer REFERENCES data_type(data_type_id)
 );
