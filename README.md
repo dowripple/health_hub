@@ -25,7 +25,10 @@ _TBD — screenshots once the UI is built out._
 |5  |Launch|Run `start_health_hub.bat` to start the Flask app via Waitress|
 
 ### Database
-DB diagram is in progress — will be added to `static/docs/` and the DDL will live in `static/sql/`.
+
+![health_hub data model](/static/images/QuickDBD-health_hub.svg)
+
+DDL will live in `static/sql/`.
 
 ### Tracked Stats (planned)
 - Weight / body composition
