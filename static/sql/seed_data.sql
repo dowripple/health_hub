@@ -84,3 +84,23 @@ INSERT INTO unit_of_measure (unit_of_measure, unit_of_measure_abbr, unit_of_meas
     ('steps',                      'steps',      '%d'),
     ('calories',                   'kcal',       '%d')
 ON CONFLICT (unit_of_measure) DO NOTHING;
+
+-- ---------- biometric_measure ----------
+-- Uses lookup subqueries so we don't depend on serial IDs assigned above.
+INSERT INTO biometric_measure (biometric_measure, data_type_id, unit_of_measure_id) VALUES
+    ('height',
+        (SELECT data_type_id       FROM data_type       WHERE data_type       = 'numeric'),
+        (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'inches')),
+    ('weight',
+        (SELECT data_type_id       FROM data_type       WHERE data_type       = 'numeric'),
+        (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'pounds')),
+    ('bmi',
+        (SELECT data_type_id       FROM data_type       WHERE data_type       = 'numeric'),
+        (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'body mass index')),
+    ('body_fat_percentage',
+        (SELECT data_type_id       FROM data_type       WHERE data_type       = 'numeric'),
+        (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'percent')),
+    ('waist_circumference',
+        (SELECT data_type_id       FROM data_type       WHERE data_type       = 'numeric'),
+        (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'inches'))
+ON CONFLICT (biometric_measure) DO NOTHING;
