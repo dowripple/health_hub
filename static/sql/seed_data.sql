@@ -104,3 +104,30 @@ INSERT INTO biometric_measure (biometric_measure, data_type_id, unit_of_measure_
         (SELECT data_type_id       FROM data_type       WHERE data_type       = 'numeric'),
         (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'inches'))
 ON CONFLICT (biometric_measure) DO NOTHING;
+
+-- ---------- vitals_measure ----------
+-- Storage convention:
+--   * Single-value smallint vitals  -> vitals_measure_smallint
+--   * Single-value numeric vitals   -> vitals_measure_numeric
+--   * Blood pressure is recorded as ONE row in patient_vitals, keyed by
+--     vitals_measure = 'bp_systolic', with the systolic value in
+--     vitals_measure_smallint and the diastolic value in
+--     vitals_measure_2_smallint. The 'bp_diastolic' lookup row exists
+--     primarily so the UI / reports can label and format the paired value.
+INSERT INTO vitals_measure (vitals_measure, data_type_id, unit_of_measure_id) VALUES
+    ('heart_rate',
+        (SELECT data_type_id       FROM data_type       WHERE data_type       = 'smallint'),
+        (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'beats per minute')),
+    ('bp_systolic',
+        (SELECT data_type_id       FROM data_type       WHERE data_type       = 'smallint'),
+        (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'millimeters of mercury')),
+    ('bp_diastolic',
+        (SELECT data_type_id       FROM data_type       WHERE data_type       = 'smallint'),
+        (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'millimeters of mercury')),
+    ('body_temperature',
+        (SELECT data_type_id       FROM data_type       WHERE data_type       = 'numeric'),
+        (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'degrees Fahrenheit')),
+    ('blood_oxygen',
+        (SELECT data_type_id       FROM data_type       WHERE data_type       = 'smallint'),
+        (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'percent oxygen saturation'))
+ON CONFLICT (vitals_measure) DO NOTHING;
