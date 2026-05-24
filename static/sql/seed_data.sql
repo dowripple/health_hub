@@ -177,3 +177,112 @@ INSERT INTO activity (activity, activity_type_id) VALUES
     ('golf',                     (SELECT activity_type_id FROM activity_type WHERE activity_type = 'sports')),
     ('pickleball',               (SELECT activity_type_id FROM activity_type WHERE activity_type = 'sports'))
 ON CONFLICT (activity) DO NOTHING;
+
+-- ---------- lab_component ----------
+-- Individual analytes that can be measured. Each has a unit + data type.
+INSERT INTO lab_component (component_name, unit_of_measure_id, data_type_id) VALUES
+    -- chemistry / metabolic
+    ('glucose',                                  (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'milligrams per deciliter'), (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('calcium',                                  (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'milligrams per deciliter'), (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('sodium',                                   (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'milliequivalents per liter'), (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('potassium',                                (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'milliequivalents per liter'), (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('bicarbonate',                              (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'milliequivalents per liter'), (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('chloride',                                 (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'milliequivalents per liter'), (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('blood urea nitrogen',                      (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'milligrams per deciliter'), (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('creatinine',                               (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'milligrams per deciliter'), (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+
+    -- liver / protein (CMP extras)
+    ('albumin',                                  (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'grams per deciliter'),     (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('total protein',                            (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'grams per deciliter'),     (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('alkaline phosphatase',                     (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'units per liter'),         (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('alanine aminotransferase',                 (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'units per liter'),         (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('aspartate aminotransferase',               (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'units per liter'),         (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('total bilirubin',                          (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'milligrams per deciliter'), (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+
+    -- lipid panel
+    ('total cholesterol',                        (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'milligrams per deciliter'), (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('ldl cholesterol',                          (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'milligrams per deciliter'), (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('hdl cholesterol',                          (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'milligrams per deciliter'), (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('triglycerides',                            (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'milligrams per deciliter'), (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+
+    -- complete blood count
+    ('white blood cell count',                   (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'thousand per microliter'),  (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('red blood cell count',                     (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'million per microliter'),   (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('hemoglobin',                               (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'grams per deciliter'),     (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('hematocrit',                               (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'percent'),                 (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('mean corpuscular volume',                  (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'femtoliters'),             (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('mean corpuscular hemoglobin',              (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'picograms'),               (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('mean corpuscular hemoglobin concentration',(SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'grams per deciliter'),     (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('platelet count',                           (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'thousand per microliter'),  (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+    ('red cell distribution width',              (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'percent'),                 (SELECT data_type_id FROM data_type WHERE data_type = 'numeric')),
+
+    -- diabetes
+    ('hemoglobin a1c',                           (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'percent'),                 (SELECT data_type_id FROM data_type WHERE data_type = 'numeric'))
+ON CONFLICT (component_name) DO NOTHING;
+
+-- ---------- lab_test ----------
+INSERT INTO lab_test (test_name) VALUES
+    ('basic metabolic panel'),
+    ('comprehensive metabolic panel'),
+    ('lipid panel'),
+    ('complete blood count'),
+    ('hemoglobin a1c')
+ON CONFLICT (test_name) DO NOTHING;
+
+-- ---------- lab_test_component (bridge) ----------
+-- Maps each test to its components. CTE keeps the mapping readable;
+-- the join resolves names to IDs at insert time.
+WITH mappings(test_name, component_name) AS (
+    VALUES
+        -- basic metabolic panel (8)
+        ('basic metabolic panel', 'glucose'),
+        ('basic metabolic panel', 'calcium'),
+        ('basic metabolic panel', 'sodium'),
+        ('basic metabolic panel', 'potassium'),
+        ('basic metabolic panel', 'bicarbonate'),
+        ('basic metabolic panel', 'chloride'),
+        ('basic metabolic panel', 'blood urea nitrogen'),
+        ('basic metabolic panel', 'creatinine'),
+
+        -- comprehensive metabolic panel (BMP + 6 = 14)
+        ('comprehensive metabolic panel', 'glucose'),
+        ('comprehensive metabolic panel', 'calcium'),
+        ('comprehensive metabolic panel', 'sodium'),
+        ('comprehensive metabolic panel', 'potassium'),
+        ('comprehensive metabolic panel', 'bicarbonate'),
+        ('comprehensive metabolic panel', 'chloride'),
+        ('comprehensive metabolic panel', 'blood urea nitrogen'),
+        ('comprehensive metabolic panel', 'creatinine'),
+        ('comprehensive metabolic panel', 'albumin'),
+        ('comprehensive metabolic panel', 'total protein'),
+        ('comprehensive metabolic panel', 'alkaline phosphatase'),
+        ('comprehensive metabolic panel', 'alanine aminotransferase'),
+        ('comprehensive metabolic panel', 'aspartate aminotransferase'),
+        ('comprehensive metabolic panel', 'total bilirubin'),
+
+        -- lipid panel (4)
+        ('lipid panel', 'total cholesterol'),
+        ('lipid panel', 'ldl cholesterol'),
+        ('lipid panel', 'hdl cholesterol'),
+        ('lipid panel', 'triglycerides'),
+
+        -- complete blood count (9)
+        ('complete blood count', 'white blood cell count'),
+        ('complete blood count', 'red blood cell count'),
+        ('complete blood count', 'hemoglobin'),
+        ('complete blood count', 'hematocrit'),
+        ('complete blood count', 'mean corpuscular volume'),
+        ('complete blood count', 'mean corpuscular hemoglobin'),
+        ('complete blood count', 'mean corpuscular hemoglobin concentration'),
+        ('complete blood count', 'platelet count'),
+        ('complete blood count', 'red cell distribution width'),
+
+        -- hemoglobin a1c (1)
+        ('hemoglobin a1c', 'hemoglobin a1c')
+)
+INSERT INTO lab_test_component (test_id, component_id)
+SELECT t.test_id, c.component_id
+FROM   mappings m
+JOIN   lab_test      t ON t.test_name      = m.test_name
+JOIN   lab_component c ON c.component_name = m.component_name
+ON CONFLICT (test_id, component_id) DO NOTHING;
