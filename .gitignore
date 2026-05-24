@@ -1,0 +1,5 @@
+.flask_secret
+serve.out.log
+serve.err.log
+__pycache__/
+*.pyc
