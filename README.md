@@ -1,10 +1,15 @@
 # Health Hub
 
-### Description
 Track a patient's health stats over time — weight, vitals, lab results, medications, and more — all in one place. Built on a PostgreSQL database, Python Flask backend, and a jQuery / DataTables front end.
 
-### Images
-_TBD — screenshots once the UI is built out._
+### Data Model
+
+<p align="center">
+  <img src="static/images/QuickDBD-health_hub.svg" alt="health_hub data model" width="100%">
+</p>
+
+### Screenshots
+_TBD — once the UI is built out._
 
 ### Tools Needed to Create
 |Tool   |Description                                                                                                          |
@@ -25,10 +30,7 @@ _TBD — screenshots once the UI is built out._
 |5  |Launch|Run `start_health_hub.bat` to start the Flask app via Waitress|
 
 ### Database
-
-![health_hub data model](/static/images/QuickDBD-health_hub.svg)
-
-DDL will live in `static/sql/`.
+DDL lives in `static/sql/table_ddl.sql`; lookup seed data in `static/sql/seed_data.sql`. See the **Data Model** diagram above.
 
 ### Tracked Stats (planned)
 - Weight / body composition
