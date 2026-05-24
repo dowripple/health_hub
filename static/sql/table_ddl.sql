@@ -62,6 +62,12 @@ CREATE TABLE lab_component (
     data_type_id       integer REFERENCES data_type(data_type_id)
 );
 
+CREATE TABLE activity (
+    activity_id      serial PRIMARY KEY,
+    activity         text NOT NULL UNIQUE,
+    activity_type_id smallint REFERENCES activity_type(activity_type_id)
+);
+
 -- ---------- core entity ----------
 
 CREATE TABLE patient (
@@ -134,12 +140,12 @@ CREATE TABLE lab_test_component_results (
 
 CREATE TABLE patient_activity (
     patient_id        integer   NOT NULL REFERENCES patient(patient_id),
-    activity_type_id  integer   NOT NULL REFERENCES activity_type(activity_type_id),
+    activity_id       integer   NOT NULL REFERENCES activity(activity_id),
     activity_datetime timestamp NOT NULL,
     activity_duration numeric(18,4),
     activity_distance numeric(18,4),
     activity_comment  text,
-    PRIMARY KEY (patient_id, activity_type_id, activity_datetime)
+    PRIMARY KEY (patient_id, activity_id, activity_datetime)
 );
 
 -- ---------- helpful indexes on FK columns used in joins ----------

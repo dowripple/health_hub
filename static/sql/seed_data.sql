@@ -131,3 +131,49 @@ INSERT INTO vitals_measure (vitals_measure, data_type_id, unit_of_measure_id) VA
         (SELECT data_type_id       FROM data_type       WHERE data_type       = 'smallint'),
         (SELECT unit_of_measure_id FROM unit_of_measure WHERE unit_of_measure = 'percent oxygen saturation'))
 ON CONFLICT (vitals_measure) DO NOTHING;
+
+-- ---------- activity_type ----------
+INSERT INTO activity_type (activity_type) VALUES
+    ('cardio'),
+    ('strength'),
+    ('flexibility'),
+    ('balance'),
+    ('sports')
+ON CONFLICT (activity_type) DO NOTHING;
+
+-- ---------- activity ----------
+-- Each row resolves its activity_type via subquery so serial IDs don't matter.
+INSERT INTO activity (activity, activity_type_id) VALUES
+    -- cardio
+    ('walking',                  (SELECT activity_type_id FROM activity_type WHERE activity_type = 'cardio')),
+    ('jogging',                  (SELECT activity_type_id FROM activity_type WHERE activity_type = 'cardio')),
+    ('running',                  (SELECT activity_type_id FROM activity_type WHERE activity_type = 'cardio')),
+    ('cycling',                  (SELECT activity_type_id FROM activity_type WHERE activity_type = 'cardio')),
+    ('swimming',                 (SELECT activity_type_id FROM activity_type WHERE activity_type = 'cardio')),
+    ('rowing',                   (SELECT activity_type_id FROM activity_type WHERE activity_type = 'cardio')),
+    ('hiking',                   (SELECT activity_type_id FROM activity_type WHERE activity_type = 'cardio')),
+    ('elliptical',               (SELECT activity_type_id FROM activity_type WHERE activity_type = 'cardio')),
+    ('stair climbing',           (SELECT activity_type_id FROM activity_type WHERE activity_type = 'cardio')),
+
+    -- strength
+    ('weight training',          (SELECT activity_type_id FROM activity_type WHERE activity_type = 'strength')),
+    ('body weight training',     (SELECT activity_type_id FROM activity_type WHERE activity_type = 'strength')),
+    ('resistance band training', (SELECT activity_type_id FROM activity_type WHERE activity_type = 'strength')),
+    ('powerlifting',             (SELECT activity_type_id FROM activity_type WHERE activity_type = 'strength')),
+
+    -- flexibility
+    ('yoga',                     (SELECT activity_type_id FROM activity_type WHERE activity_type = 'flexibility')),
+    ('stretching',               (SELECT activity_type_id FROM activity_type WHERE activity_type = 'flexibility')),
+    ('pilates',                  (SELECT activity_type_id FROM activity_type WHERE activity_type = 'flexibility')),
+
+    -- balance
+    ('tai chi',                  (SELECT activity_type_id FROM activity_type WHERE activity_type = 'balance')),
+    ('balance training',         (SELECT activity_type_id FROM activity_type WHERE activity_type = 'balance')),
+
+    -- sports
+    ('tennis',                   (SELECT activity_type_id FROM activity_type WHERE activity_type = 'sports')),
+    ('basketball',               (SELECT activity_type_id FROM activity_type WHERE activity_type = 'sports')),
+    ('soccer',                   (SELECT activity_type_id FROM activity_type WHERE activity_type = 'sports')),
+    ('golf',                     (SELECT activity_type_id FROM activity_type WHERE activity_type = 'sports')),
+    ('pickleball',               (SELECT activity_type_id FROM activity_type WHERE activity_type = 'sports'))
+ON CONFLICT (activity) DO NOTHING;
